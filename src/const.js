@@ -50,12 +50,12 @@ const Method = {
   DELETE: 'DELETE'
 };
 
-const AUTHORIZATION = 'Basic gshja675DvhjsDgjaFVs4j';
-const END_POINT = 'https://22.objects.pages.academy/big-trip';
+const AUTHORIZATION = 'Basic gshjjsDgjaFVs4j';
+const END_POINT = 'https://22.objects.htmlacademy.pro/big-trip';
 
 const TimeLimit = {
   LOWER_LIMIT: 350,
   UPPER_LIMIT: 1000
 };
 
-export {EVENT_TYPES, DateFormats, FilterTypes, SortTypes, UserAction, UpdateType, NoEventsTexts, Method, AUTHORIZATION, END_POINT, TimeLimit};
+export {EVENT_TYPES, DateFormats, FilterTypes, SortTypes, UserAction, UpdateTy

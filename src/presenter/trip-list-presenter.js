@@ -26,8 +26,8 @@ export default class TripListPresenter {
   #filterModel = null;
   #currentSortType = SortTypes.DAY;
   #pointPresenters = new Map();
-  #newPointPresenter = null;
   #isLoading = true;
+  #newPointPresenter = null;
   #uiBlocker = new UiBlocker({
     lowerLimit: TimeLimit.LOWER_LIMIT,
     upperLimit: TimeLimit.UPPER_LIMIT
@@ -110,7 +110,9 @@ export default class TripListPresenter {
     remove(this.#loadingComponent);
     remove(this.#failedLoadComponent);
     remove(this.#sortComponent);
-    this.#newPointPresenter.destroy();
+    if (this.#newPointPresenter) {
+      this.#newPointPresenter.destroy();
+    }
     this.#clearPointsBoard();
   }
 
@@ -124,7 +126,8 @@ export default class TripListPresenter {
       offers: this.offers,
       destinations: this.destinations,
       onDataChange: this.#handleViewAction,
-      onModeChange: this.#handleModeChange
+      onModeChange: this.#handleModeChange,
+      newPointFormComponent: this.#newPointPresenter
     });
     pointPresenter.init(point);
     this.#pointPresenters.set(point.id, pointPresenter);
@@ -203,7 +206,6 @@ export default class TripListPresenter {
   };
 
   #handleAddPointBtnClick = () => {
-    this.#addBtnComponent.element.disabled = true;
     this.#newPointPresenter = new NewPointPresenter({
       container: this.#tripListComponent.element,
       offers: this.offers,
@@ -213,7 +215,9 @@ export default class TripListPresenter {
     });
     this.#currentSortType = SortTypes.DAY;
     this.#filterModel.setFilter(UpdateType.MAJOR, FilterTypes.EVERYTHING);
+    this.#handleModeChange();
     this.#newPointPresenter.init();
+    this.#addBtnComponent.element.disabled = true;
   };
 
   #handleNewEventFormClose = () => {
